@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home.MyRepository"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#292929"
+        android:gravity="center"
+        android:layout_weight="0"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="23dp"
+            android:text="GitHub-Dev"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/barlowcondensedmedium"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:text="Easy to Control Github Account"
+            android:textSize="10dp"
+            android:gravity="center"
+            android:layout_marginBottom="2dp"
+            android:textColor="#F1F1F1"
+            android:fontFamily="@font/barlowcondensedmedium"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_weight="0">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2196F3"
+            android:layout_weight="1"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFEB3B"
+            android:layout_weight="1"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#35D53C"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_repository"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                />
+    </ScrollView>
+    <TextView
+        android:id="@+id/home_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next Page"
+        android:gravity="center|end"
+        android:textColor="#006CC1"
+        android:paddingRight="10dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+
+</LinearLayout>
