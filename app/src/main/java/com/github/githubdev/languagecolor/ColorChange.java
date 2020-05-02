@@ -1,4 +1,4 @@
-package com.github.githubdev;
+package com.github.githubdev.languagecolor;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+
+import com.github.githubdev.R;
 
 public class ColorChange {
     public ColorChange(String language, ImageView codeLanguage, Context context) {

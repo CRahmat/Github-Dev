@@ -25,7 +25,9 @@ public class FavoriteViewModel extends ViewModel {
             favoriteDAO = favoriteDatabase.repositoryDAO();
             favoriteData = favoriteDatabase.repositoryDAO().getRepositoryData();
         }
-        liveData.postValue(favoriteData);
+        if(favoriteData.size() != 0) {
+            liveData.postValue(favoriteData);
+        }
     }
 
     public LiveData<List<FavoriteData>> getRepository(){

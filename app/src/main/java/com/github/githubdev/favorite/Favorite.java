@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.githubdev.R;
@@ -39,6 +40,7 @@ public class Favorite extends Fragment implements FavoriteContract.view {
     private FavoriteDatabase favoriteDatabase;
     private FavoriteAdapter repositoryAdapter;
     RecyclerView recyclerView;
+    TextView notFound;
     private List<FavoriteData> favoriteData = new ArrayList<>();
     private FavoriteContract.view repositoryView;
     private FavoriteOperation favoriteOperation;
@@ -84,10 +86,17 @@ public class Favorite extends Fragment implements FavoriteContract.view {
     public void setData(List<FavoriteData> repositoryResponses){
         this.favoriteData.clear();
         this.favoriteData.addAll(repositoryResponses);
+
         if(favoriteDatabase == null){
             favoriteDatabase = FavoriteDatabase.database(getContext());
             favoriteDAO = favoriteDatabase.repositoryDAO();
             favoriteData = favoriteDatabase.repositoryDAO().getRepositoryData();
+            notFound = getView().findViewById(R.id.notFound);
+            recyclerView = getView().findViewById(R.id.rv_repository_fav);
+            if(favoriteData.size() != 0){
+                notFound.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -99,11 +108,14 @@ public class Favorite extends Fragment implements FavoriteContract.view {
 
     @Override
     public void successDelete() {
-        if(favoriteOperation == null){
-            new FavoriteOperation(this);
+        if(favoriteData.size() == 1){
+            notFound.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }else {
+
+            favoriteOperation.readRepositoryData(favoriteDatabase, getContext());
         }
         Toast.makeText(getContext(), "Berhasil Menghapus Data dari Favorite", Toast.LENGTH_SHORT).show();
-        favoriteOperation.readRepositoryData(favoriteDatabase, getContext());
     }
 
     @Override

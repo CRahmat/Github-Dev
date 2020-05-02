@@ -1,11 +1,13 @@
-package com.github.githubdev;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.github.githubdev.webview;
 
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.githubdev.R;
 
 public class GithubWeb extends AppCompatActivity {
     private String load_url;

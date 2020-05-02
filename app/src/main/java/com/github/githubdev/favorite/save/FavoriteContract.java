@@ -18,7 +18,7 @@ public interface FavoriteContract {
 
     // interfaace presenter digunakan untuk kodingan database nya
     interface presenter {
-        void insertRepositoryData(String title, String description, String fork, String star, String language, String url, FavoriteDatabase favoriteDatabase);
+        void insertRepositoryData(String title, String description, String fork, String star, String language, String created, String updated, String watch, String url, FavoriteDatabase favoriteDatabase);
 
         void readRepositoryData(FavoriteDatabase favoriteDatabase, Context context);
 

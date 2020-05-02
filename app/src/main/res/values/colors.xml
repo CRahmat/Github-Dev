@@ -19,4 +19,19 @@
     <color name="intro_2">#AE03A9F4</color>
     <color name="intro_3">#BAFF9800</color>
 
+    <color name="TypeScript">#2b7489</color>
+    <color name="C">#555555</color>
+    <color name="Kotlin">#F18E33</color>
+    <color name="Ruby">#701516</color>
+    <color name="Go">#3065CF</color>
+    <color name="VisualBasic">#5E2383</color>
+    <color name="PHP">#424F81</color>
+    <color name="Java">#b07219</color>
+    <color name="HTML">#e44b23</color>
+    <color name="CSS">#8E6AC3</color>
+    <color name="JavaScript">#f1e05a</color>
+    <color name="Python">#59B4FF</color>
+    <color name="CSharp">#178600</color>
+    <color name="Another">#A3B50A</color>
+
 </resources>

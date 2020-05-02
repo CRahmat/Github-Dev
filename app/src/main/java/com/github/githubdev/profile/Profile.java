@@ -15,14 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.githubdev.R;
+import com.github.githubdev.favorite.FavoriteAdapter;
+import com.github.githubdev.favorite.save.FavoriteContract;
+import com.github.githubdev.favorite.save.FavoriteData;
 import com.github.githubdev.intro.IntroActivity;
+import com.github.githubdev.searchusername.saveusername.UsernameDAO;
 import com.github.githubdev.searchusername.saveusername.UsernameData;
 import com.github.githubdev.searchusername.saveusername.UsernameDatabase;
 import com.github.githubdev.searchusername.saveusername.UsernameOperation;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,6 +42,7 @@ public class Profile extends Fragment {
     private UserViewModel userViewModel;
     UsernameData usernameData;
     UsernameDatabase usernameDatabase;
+    UsernameDAO usernameDAO;
     private UserProfileResponse userProfileResponse;
     TextView name;
     TextView userName;
@@ -47,6 +56,10 @@ public class Profile extends Fragment {
     CircleImageView photoProfile;
     Button btn_sign_out;
     IntroActivity introActivity;
+    ProgressBar progressBar;
+    private List<FavoriteData> favoriteData = new ArrayList<>();
+    private FavoriteContract.view repositoryView;
+    private FavoriteData favoriteDelete;
 
     public Profile() {
         // Required empty public constructor
@@ -71,6 +84,7 @@ public class Profile extends Fragment {
         @Override
         public void onChanged(UserProfileResponse userProfileResponse) {
             if(userProfileResponse != null){
+                progressBar.setVisibility(View.GONE);
                 Picasso.get().load(userProfileResponse.getPhotoProfile()).into(photoProfile);
                 name.setText(userProfileResponse.getName());
                 userName.setText(userProfileResponse.getUsername());
@@ -123,6 +137,7 @@ public class Profile extends Fragment {
         organization = getActivity().findViewById(R.id.profile_organization);
         photoProfile = getActivity().findViewById(R.id.profile_image);
         btn_sign_out = getActivity().findViewById(R.id.profile_logout_bottom);
+        progressBar = getActivity().findViewById(R.id.progres_bar_profile);
     }
 
 }

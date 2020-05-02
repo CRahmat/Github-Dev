@@ -2,7 +2,6 @@ package com.github.githubdev.favorite.save;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,9 @@ public class FavoriteOperation implements FavoriteContract.presenter {
     List<FavoriteData> favoriteData = new ArrayList<>();
     public FavoriteOperation(FavoriteContract.view viewContract) {
         this.viewContract = viewContract;
+    }
+
+    public FavoriteOperation(Context applicationContext) {
     }
 
     class InsertData extends AsyncTask<Void, Void, Long>{
@@ -38,7 +40,7 @@ public class FavoriteOperation implements FavoriteContract.presenter {
     }
 
     @Override
-    public void insertRepositoryData(String title, String description, String fork, String star, String language, String url, final FavoriteDatabase favoriteDatabase) {
+    public void insertRepositoryData(String title, String description, String fork, String star, String language, String created, String updated, String watch, String url, final FavoriteDatabase favoriteDatabase) {
         if(favoriteData.size()==0){
             final FavoriteData favoriteData = new FavoriteData();
             favoriteData.setFullName(title);
@@ -46,6 +48,9 @@ public class FavoriteOperation implements FavoriteContract.presenter {
             favoriteData.setForksCount(fork);
             favoriteData.setStarGazersCount(star);
             favoriteData.setLanguage(language);
+            favoriteData.setCreatedAt(created);
+            favoriteData.setUpdatedAt(updated);
+            favoriteData.setWatchersCount(watch);
             favoriteData.setLink(url);
             new InsertData(favoriteDatabase, favoriteData).execute();
         }else{

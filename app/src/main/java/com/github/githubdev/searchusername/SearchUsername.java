@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.github.githubdev.R;
+import com.github.githubdev.favorite.save.FavoriteData;
+import com.github.githubdev.favorite.save.FavoriteDatabase;
+import com.github.githubdev.favorite.save.FavoriteOperation;
 import com.github.githubdev.intro.IntroActivity;
 import com.github.githubdev.main.MainActivity;
 import com.github.githubdev.searchusername.saveusername.UsernameDAO;
@@ -20,6 +23,8 @@ import com.github.githubdev.searchusername.saveusername.UsernameOperation;
 import com.github.githubdev.services.base.APIClient;
 import com.github.githubdev.searchusername.saveusername.UsernameData;
 import com.github.githubdev.searchusername.saveusername.UsernameDatabase;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +77,12 @@ public class SearchUsername extends AppCompatActivity{
                         UsernameOperation usernameOperation = new UsernameOperation(getApplicationContext());
                         usernameDatabase = UsernameDatabase.usernameDatabase(getApplicationContext());
                         usernameData = usernameDatabase.usernameDAO().getUsername();
+                        FavoriteOperation favoriteOperation = new FavoriteOperation(getApplicationContext());
+                        FavoriteDatabase favoriteDatabase = FavoriteDatabase.database(getApplicationContext());
+                        List<FavoriteData> favoriteData = favoriteDatabase.repositoryDAO().getRepositoryData();
+                        for (int i = 0 ; i < favoriteData.size() ; i++) {
+                            favoriteOperation.deleteRepositoryData(favoriteData.get(i), favoriteDatabase);
+                        }
                         usernameOperation.deleteUsername(usernameData, usernameDatabase);
                         usernameOperation.insertUsername(searchResponse.result.get(0).getLogin(), UsernameDatabase.usernameDatabase(getBaseContext()));
                         Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();

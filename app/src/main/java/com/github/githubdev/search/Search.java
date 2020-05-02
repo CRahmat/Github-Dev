@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class Search extends Fragment implements View.OnClickListener {
     private FavoriteDatabase favoriteDatabase;
     FavoriteContract.view repositoryContract;
     private List<FavoriteData> favoriteData;
+    ProgressBar progressBar;
     public Search() {
         // Required empty public constructor
     }
@@ -65,6 +67,7 @@ public class Search extends Fragment implements View.OnClickListener {
         recyclerView = view.findViewById(R.id.rv_search_result);
         search = view.findViewById(R.id.et_search);
         next = view.findViewById(R.id.home_next);
+        progressBar = view.findViewById(R.id.progres_bar_search);
         btnSearch.setOnClickListener(this);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +84,7 @@ public class Search extends Fragment implements View.OnClickListener {
         public void onChanged(SearchRepositoryResponse searchRepositoryResponses) {
             if(searchRepositoryResponses != null){
                 myRepositoryAdapter.setData(searchRepositoryResponses.result);
+                recyclerView.setVisibility(View.VISIBLE);
             }
             else {
                 Toast.makeText(getContext(),"Failed to get Data from Server", Toast.LENGTH_SHORT).show();
@@ -90,13 +94,17 @@ public class Search extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        myRepositoryAdapter = new SearchRepositoryAdapter(getContext());
-        myRepositoryAdapter.notifyDataSetChanged();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        myRepositoryViewModel = new ViewModelProvider(this).get(SearchRepositoryViewModel.class);
-        myRepositoryViewModel.setRepository(getContext(), search.getText().toString());
-        myRepositoryViewModel.getRepository().observe(this, getRepository);
-        recyclerView.setAdapter(myRepositoryAdapter);
-
+        if(!search.getText().toString().equals("")) {
+            progressBar.setVisibility(v.VISIBLE);
+            myRepositoryAdapter = new SearchRepositoryAdapter(getContext());
+            myRepositoryAdapter.notifyDataSetChanged();
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            myRepositoryViewModel = new ViewModelProvider(this).get(SearchRepositoryViewModel.class);
+            myRepositoryViewModel.setRepository(getContext(), search.getText().toString());
+            myRepositoryViewModel.getRepository().observe(this, getRepository);
+            recyclerView.setAdapter(myRepositoryAdapter);
+        }else {
+            search.setHint("Please, Input repository name");
+        }
     }
 }
