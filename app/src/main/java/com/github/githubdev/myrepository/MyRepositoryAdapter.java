@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -141,6 +142,14 @@ public class MyRepositoryAdapter extends RecyclerView.Adapter<MyRepositoryAdapte
                 context.startActivity(webView);
             }
         });
+        holder.recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent webView = new Intent(context, GithubWeb.class);
+                webView.putExtra("load_url", repositoryResponses.get(position).getLink());
+                context.startActivity(webView);
+            }
+        });
     }
     @NonNull
     @Override
@@ -163,6 +172,7 @@ public class MyRepositoryAdapter extends RecyclerView.Adapter<MyRepositoryAdapte
         TextView repositoryUpdated;
         TextView repositoryCreated;
         TextView repositoryWatchers;
+        LinearLayout recyclerView;
         public ViewHolder(@NonNull View view) {
             super(view);
             titleRepository = view.findViewById(R.id.repository_name);
@@ -176,6 +186,7 @@ public class MyRepositoryAdapter extends RecyclerView.Adapter<MyRepositoryAdapte
             repositoryCreated = view.findViewById(R.id.repository_created);
             repositoryUpdated = view.findViewById(R.id.repository_update);
             repositoryWatchers = view.findViewById(R.id.repository_watch);
+            recyclerView = view.findViewById(R.id.recyclerview_layout);
         }
         }
 
